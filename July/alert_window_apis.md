@@ -76,3 +76,10 @@ public class LoginDailog extends DialogFragment implements View.OnClickListener 
 ```
 
 ## 警示弹窗ALertView
+
+
+
+
+
+# 发现的其他提示方式
+
