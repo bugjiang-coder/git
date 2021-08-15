@@ -17,12 +17,12 @@ class Store(object):
 
 
 # 这里填写处理过后的strings.xml（去除英文字符，保存为结构数组）的保存路径
-store_path = r"D:\文件\学习\课程\曦源项目\com.eg.android.AlipayGphone\string_p.txt"
+store_path = r"D:\文件\学习\课程\曦源项目\WeChat\string_p.txt"
 # 这里填写保存文件jadx resources.arsc下res->values->strings.xml复制出来的txt文件的的绝对路径
-file_path = r"D:\文件\学习\课程\曦源项目\com.eg.android.AlipayGphone\stringsXML.txt"
+file_path = r"D:\文件\学习\课程\曦源项目\WeChat\strings.txt"
 # 这里填写nlpir输出的output sentiment文件路径
 # sentiment_path="E:\\NLPIR-master\\NLPIR-master\\NLPIR-Parser\\output\\sentiment_General_Detail.txt"
-sentiment_path = r"D:\文件\学习\课程\曦源项目\com.eg.android.AlipayGphone\output.txt"
+sentiment_path = r"D:\文件\学习\课程\曦源项目\WeChat\output.txt"
 # 这里填写smali文件夹（最外层文件夹）not implemented
 neg_str_path = r"D:\文件\学习\课程\曦源项目\com.eg.android.AlipayGphone\neg_str.txt"
 
@@ -62,7 +62,7 @@ def file_way_add_name():
             xpath_sent = '//string[@name=\"%s\"]/text()' % str(names[i])
             # print(xpath_sent)
             res = se.xpath(xpath_sent)
-            # print(names[i],res)
+            print(names[i],res)
             # os.system("pause")
             if(len(res) == 0):
                 # print("NO content: " + str(names[i]))
@@ -99,7 +99,7 @@ def file_way_add_name():
 
 
 def extract_neg_index():
-    file_object = open(sentiment_path, "r", encoding="utf-8")
+    file_object = open(file_path, "r", encoding="utf-8")
     neg_content = []
     neg_content_name = []
     index_array = []
