@@ -4,9 +4,17 @@
 
 ## 1. dialog
 
+
+
 Dialog是对话框的基类，有以下子类之一：`AlertDialog`、`DatePickerDialog` 、 `TimePickerDialog`
 
 只有`AlertDialog`适合用于免疫警告
+
+| [kotlin.Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html) |                                                              |                                                              |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ↳                                                            | [android.app.Dialog](https://developer.android.google.cn/reference/android/app/Dialog.html) |                                                              |                                                              |
+|                                                              | ↳                                                            | [androidx.appcompat.app.AppCompatDialog](https://developer.android.google.cn/reference/kotlin/androidx/appcompat/app/AppCompatDialog) |                                                              |
+|                                                              |                                                              | ↳                                                            | [androidx.appcompat.app.AlertDialog](https://developer.android.google.cn/reference/kotlin/androidx/appcompat/app/AlertDialog?hl=en#) |
 
 
 
@@ -102,6 +110,11 @@ AlertDialog接口较多，一个实例下初始化多个内容并包含字符串
 
 snackbar是介于Dialog和Toast中间的一个控件。Snackbar和Toast比较相似，但是用途更加广泛，并且它是可以和用户进行交互的。Snackbar使用一个动画效果从屏幕的底部弹出来，过一段时间后也会自动消失。
 
+| java.lang.Object |                                                              |                                               |
+| ---------------- | ------------------------------------------------------------ | --------------------------------------------- |
+| ↳                | [com.google.android.material.snackbar.BaseTransientBottomBar](https://developer.android.google.cn/reference/com/google/android/material/snackbar/BaseTransientBottomBar) < [com.google.android.material.snackbar.Snackbar](https://developer.android.google.cn/reference/com/google/android/material/snackbar/Snackbar) > |                                               |
+|                  | ↳                                                            | com.google.android.material.snackbar.Snackbar |
+
 ### **示例代码：**
 
 ```java
@@ -148,6 +161,10 @@ Snackbar.make(view, "data deleted",Snackbar.LENGTH_LONG)
 ## 3. Toast
 
 Toast只会弹出一段信息，告诉用户某某事情已经发生了，过一段时间后就会自动消失。它完全不会阻挡用户的任何操作，甚至用户也可以完全不用理会Toast。
+
+| [java.lang.Object](https://developer.android.google.cn/reference/java/lang/Object) |                      |
+| ------------------------------------------------------------ | -------------------- |
+| ↳                                                            | android.widget.Toast |
 
 ### **示例代码：**
 
@@ -211,6 +228,8 @@ Util.showToast(context, "things happened");
 
 Activity作为弹出对话框，显示的位置可以灵活多变
 
+api： androidx.activity
+
 - 例子
 
 ![img](alert_window_apis_image/SouthEast)
@@ -236,6 +255,10 @@ startActivity(intent);
 
 展示view的弹出窗体，这个弹出窗体将会浮动在当前activity的最上层，这个和免疫相关的弹窗机制十分类似,输出的内容一般存放在contentview变量中
 
+| [kotlin.Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html) |                                                              |
+| ------------------------------------------------------------ | :----------------------------------------------------------- |
+| ↳                                                            | [android.widget.PopupWindow](https://developer.android.google.cn/reference/kotlin/android/widget/PopupWindow?hl=en#) |
+
 - 调用举例
 
 ```java
@@ -243,10 +266,21 @@ TestPopupWindow mWindow = new TestPopupWindow(this);
 PopupWindowCompat.showAsDropDown(mWindow, mButtom, 0, 0, Gravity.START);
 ```
 
-- 检测方法
+- 例子
 
-1. 这种方法的特征是弹窗前会先检测之前设置的contentview的大小,因此除了搜索方法之外，还可以搜索window.getContextView附近的语句来筛选一部分。
-2. 由于没有显式字符串参数，需要在resources文件中寻找
+![img](alert_window_apis_image/43925301.jpg)
+
+
+
+### 特征
+
+（1）一般含有参数view 
+
+这种方法的特征是弹窗前会先检测之前设置的contentview的大小,因此除了搜索方法之外，还可以搜索window.getContextView附近的语句来筛选一部分。
+
+（2）有对应的布局文件
+
+在项目目录的res下layout里面，包含有对应的布局xml文件。没有显式字符串参数，相关的字符串需要在resources文件中寻找
 
 ```java
 int offsetX = window.getContentView().getMeasuredWidth();
@@ -254,11 +288,24 @@ int offsetY = 0;
 PopupWindowCompat.showAsDropDown(window, mButton, offsetX, offsetY, Gravity.START);
 ```
 
+（3）可能有 PopupWindow关键字
+
 
 
 ## 6. Fragment弹窗
 
-DiaglogFragment是一个类，对类中成员赋值之后就可以设置弹窗内容，背景等
+
+
+| [kotlin.Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html) |                                                              |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ↳                                                            | [androidx.fragment.app.Fragment](https://developer.android.google.cn/reference/kotlin/androidx/fragment/app/Fragment) |                                                              |
+|                                                              | ↳                                                            | [androidx.fragment.app.DialogFragment](https://developer.android.google.cn/reference/kotlin/androidx/fragment/app/DialogFragment?hl=en#) |
+
+DiaglogFragment是一个类，对类中成员赋值之后就可以设置弹窗内容，背景等。
+
+是dialog的另一种实现形式，与一般的AlertDialog相比，DialogFragment在Activity销毁重建时会自动重建，而AlertDialog不会。（例如横竖屏切换时）
+
+![img](alert_window_apis_image/653161-20190926105551040-1058457799.gif)
 
 ```java
 public class LoginDailog extends DialogFragment implements View.OnClickListener {
@@ -269,16 +316,41 @@ public class LoginDailog extends DialogFragment implements View.OnClickListener 
 
 ```
 
+### **特征**
 
+（1）一般含有参数view 
+
+（2）包含字符串 （直接 或者在 资源文件中）
+
+（3）可能有Fragment关键字
 
 ## 7. notification
 
+通知的免疫就非常广泛，比如下面这个，如果作为通知出现在手机上，也可以是一种免疫。但是这类的免疫发生很可能不是由本地的设备状态所决定的，可能是由服务器下发。从字符出发可能难以找到对应的关键字。
 
-
-通知的免疫就非常广泛，比如下面这个如果作为通知出现在手机上，也可以是一种免疫。
+| [kotlin.Any](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html) |                                                              |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| ↳                                                            | [android.app.Notification](https://developer.android.google.cn/reference/kotlin/android/app/Notification?hl=en#) |
 
 <img src="alert_window_apis_image/image-20210816000356504.png" alt="image-20210816000356504" style="zoom: 33%;" />
 
 
 
 # 关于string位置的调查
+
+## 1. 代码中显示存放
+
+
+
+
+
+## 2.资源文件中strings.xml
+
+
+
+
+
+
+
+## 3.加密或者组合
+
