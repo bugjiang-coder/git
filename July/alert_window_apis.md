@@ -228,7 +228,9 @@ Util.showToast(context, "things happened");
 
 Activity作为弹出对话框，显示的位置可以灵活多变
 
-api： androidx.activity
+包
+
+ androidx.activity
 
 - 例子
 
